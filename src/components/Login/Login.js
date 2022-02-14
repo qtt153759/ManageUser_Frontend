@@ -1,5 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 const Login = () => {
+    let history = useHistory();
+
+    const handleRegister = () => {
+        history.push("/register");
+    };
     return (
         <div className="login-container pt-5  bg-gradient-light min-vh-100">
             <div className="container">
@@ -37,7 +43,10 @@ const Login = () => {
                         <hr />
                         {/* div bọc ngoài để button fit content */}
                         <div className="text-center">
-                            <button className="btn btn-success">
+                            <button
+                                className="btn btn-success"
+                                onClick={() => handleRegister()}
+                            >
                                 Create new account
                             </button>
                         </div>
