@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../Service/userService";
@@ -14,6 +14,14 @@ const Login = () => {
     const handleMoveToRegister = () => {
         history.push("/register");
     };
+    useEffect(() => {
+        let session = sessionStorage.getItem("account");
+        console.log(session);
+        if (session) {
+            history.push("/");
+            window.location.reload();
+        }
+    }, []);
     const handleLogin = async () => {
         setObjValidInput(defaultObjValideInput);
         if (!valueLogin) {
@@ -36,10 +44,16 @@ const Login = () => {
                 };
                 sessionStorage.setItem("account", JSON.stringify(data));
                 history.push("/user");
+                window.location.reload();
                 return;
             } else {
                 toast.error(response.data.EM);
             }
+        }
+    };
+    const handlePressEnter = (event) => {
+        if (event.charCode === 13) {
+            handleLogin();
         }
     };
     return (
@@ -84,6 +98,7 @@ const Login = () => {
                             onChange={(event) =>
                                 setPassword(event.target.value)
                             }
+                            onKeyPress={(event) => handlePressEnter(event)}
                         />
                         <button
                             className="btn btn-primary"
