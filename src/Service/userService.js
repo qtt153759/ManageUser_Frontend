@@ -14,13 +14,17 @@ const loginUser = (valueLogin, password) => {
     });
 };
 const fetchUsers = (page, limit) => {
-    return axios.get(
-        `http://localhost:5000/api/v1/user/read?page=${page}&limit=${limit}`
-    );
+    return axios.get(`http://localhost:5000/api/v1/user/read?page=${page}&limit=${limit}`);
 };
 const deleteUser = (userId) => {
     return axios.delete("http://localhost:5000/api/v1/user/delete", {
         data: { id: userId },
     });
 };
-export { registerNewUser, loginUser, fetchUsers, deleteUser };
+const fetchGroup = () => {
+    return axios.get("http://localhost:5000/api/v1/group/read");
+};
+const createNewUser = (userData) => {
+    return axios.post("http://localhost:5000/api/v1/user/create", { ...userData });
+};
+export { registerNewUser, loginUser, fetchUsers, deleteUser, fetchGroup, createNewUser };
