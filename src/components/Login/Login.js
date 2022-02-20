@@ -43,7 +43,7 @@ const Login = () => {
                 };
                 sessionStorage.setItem("account", JSON.stringify(data));
                 history.push("/user");
-                window.location.reload();
+                window.location.reload(); //load lại để check một vài đk nào đó=> tắt đi để check log
                 return;
             } else {
                 toast.error(response.EM);
