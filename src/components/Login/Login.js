@@ -16,7 +16,6 @@ const Login = () => {
     };
     useEffect(() => {
         let session = sessionStorage.getItem("account");
-        console.log(session);
         if (session) {
             history.push("/");
             window.location.reload();
@@ -36,8 +35,8 @@ const Login = () => {
             return;
         }
         let response = await loginUser(valueLogin, password);
-        if (response && response.data) {
-            if (+response.data.EC === 0) {
+        if (response) {
+            if (+response.EC === 0) {
                 let data = {
                     isAuthenticated: true,
                     token: "fake token",
@@ -47,7 +46,7 @@ const Login = () => {
                 window.location.reload();
                 return;
             } else {
-                toast.error(response.data.EM);
+                toast.error(response.EM);
             }
         }
     };
@@ -61,12 +60,9 @@ const Login = () => {
             <div className="container">
                 <div className="row px-3 px-sm-0">
                     <div className="content-left d-none d-sm-block col-7">
-                        <div className="title fs-1 fw-bold text-primary">
-                            Facebook
-                        </div>
+                        <div className="title fs-1 fw-bold text-primary">Facebook</div>
                         <div className="detail fs-4 text-muted">
-                            Connect with friend and share with the people in
-                            your life
+                            Connect with friend and share with the people in your life
                         </div>
                     </div>
                     <div className="content-right col-12 col-sm-5 d-flex flex-column gap-3 py-3 bg-white rounded shadow-lg ">
@@ -82,9 +78,7 @@ const Login = () => {
                             }
                             placeholder="Email address or phone number"
                             value={valueLogin}
-                            onChange={(event) =>
-                                setValueLogin(event.target.value)
-                            }
+                            onChange={(event) => setValueLogin(event.target.value)}
                         />
                         <input
                             type="password"
@@ -95,21 +89,13 @@ const Login = () => {
                             }
                             placeholder="Password"
                             value={password}
-                            onChange={(event) =>
-                                setPassword(event.target.value)
-                            }
+                            onChange={(event) => setPassword(event.target.value)}
                             onKeyPress={(event) => handlePressEnter(event)}
                         />
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => handleLogin()}
-                        >
+                        <button className="btn btn-primary" onClick={() => handleLogin()}>
                             Login
                         </button>
-                        <a
-                            href="#"
-                            className="text-center text-decoration-none"
-                        >
+                        <a href="#" className="text-center text-decoration-none">
                             Forgot your password?
                         </a>
                         <hr />

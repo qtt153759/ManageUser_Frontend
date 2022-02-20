@@ -19,9 +19,9 @@ const User = () => {
     }, [currentPage]);
     const fetchListUsers = async () => {
         let response = await fetchUsers(currentPage, currentLimit);
-        if (response && response.data && response.data.EC === 0) {
-            setTotalPages(response.data.DT.totalPages);
-            setListUsers(response.data.DT.users);
+        if (response && response.EC === 0) {
+            setTotalPages(response.DT.totalPages);
+            setListUsers(response.DT.users);
         }
     };
     const handlePageClick = (event) => {
@@ -29,14 +29,12 @@ const User = () => {
     };
     const handleDeleteUser = async ({ id, email, username }) => {
         userData.current = { id, email, username };
-        console.log(userData.current);
         setIsShowModalDelete(true);
     };
     const handleEditUser = (item) => {
         userData.current = _.cloneDeep(item);
         setIsShowModalUser(true);
         setAction("EDIT");
-        console.log(userData.current);
     };
     const handleCreateUser = () => {
         setIsShowModalUser(true);
@@ -44,12 +42,12 @@ const User = () => {
     };
     const confirmDeleteUser = async () => {
         let response = await deleteUser(userData.current.id);
-        if (response && response.data.EC === 0) {
-            toast.success(response.data.EM);
+        if (response && response.EC === 0) {
+            toast.success(response.EM);
             await fetchListUsers();
             setIsShowModalDelete(false);
         } else {
-            toast.error(response.data.EM);
+            toast.error(response.EM);
         }
     };
     const handleClose = async () => {
@@ -57,17 +55,29 @@ const User = () => {
         setIsShowModalDelete(false);
         await fetchListUsers();
     };
+    const handleRefresh = async () => {
+        await fetchListUsers();
+    };
     return (
         <>
             <div className="container manage-user-container">
-                <div className="user-header">
-                    <div className="title">
-                        <h3>Table user</h3>
+                <div className="user-header d-flex justify-content-between mt-4 mb-5">
+                    <div className="title d-flex align-items-center ">
+                        <h1>Manage user</h1>
                     </div>
-                    <div className="actions">
-                        <button className="btn btn-success">Refresh</button>
-                        <button className="btn btn-primary" onClick={() => handleCreateUser()}>
-                            Add new user
+                    <div className="actions d-flex gap-3 p-2">
+                        <button
+                            className="btn btn-success d-flex align-content-center"
+                            onClick={() => handleRefresh()}
+                        >
+                            <i className="fa fa-refresh pe-2 fs-4" />
+                            Refresh
+                        </button>
+                        <button
+                            className="btn btn-primary d-flex align-content-center"
+                            onClick={() => handleCreateUser()}
+                        >
+                            <i className="fa fa-plus-circle pe-2 fs-4" /> Add new user
                         </button>
                     </div>
                 </div>
@@ -101,12 +111,14 @@ const User = () => {
                                                         className="btn btn-warning mx-2"
                                                         onClick={() => handleEditUser(item)}
                                                     >
+                                                        <i className="fa fa-pencil pe-2 fs-6" />
                                                         Edit
                                                     </button>
                                                     <button
                                                         className="btn btn-danger"
                                                         onClick={() => handleDeleteUser(item)}
                                                     >
+                                                        <i className="fa fa-trash-o pe-2 fs-6" />
                                                         Delete
                                                     </button>
                                                 </td>

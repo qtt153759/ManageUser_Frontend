@@ -28,13 +28,11 @@ const Register = () => {
             username,
             phone,
         });
-        console.log({ email, password, username, phone });
-        let serverData = response.data;
-        if (serverData.EC === 0) {
-            toast.success(serverData.EM);
+        if (response.EC === 0) {
+            toast.success(response.EM);
             history.push("/login");
         } else {
-            toast.error(serverData.EM);
+            toast.error(response.EM);
         }
     };
     const validate = () => {
@@ -82,12 +80,9 @@ const Register = () => {
             <div className="container">
                 <div className="row px-3 px-sm-0">
                     <div className="content-left d-none d-sm-block col-7">
-                        <div className="title fs-1 fw-bold text-primary">
-                            Facebook
-                        </div>
+                        <div className="title fs-1 fw-bold text-primary">Facebook</div>
                         <div className="detail fs-4 text-muted">
-                            Connect with friend and share with the people in
-                            your life
+                            Connect with friend and share with the people in your life
                         </div>
                     </div>
                     <div className="content-right col-12 col-sm-5 d-flex flex-column gap-3 py-3 bg-white rounded shadow-lg ">
@@ -105,9 +100,7 @@ const Register = () => {
                                 }
                                 placeholder="Email address"
                                 value={email}
-                                onChange={(event) =>
-                                    setEmail(event.target.value)
-                                }
+                                onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -121,9 +114,7 @@ const Register = () => {
                                 }
                                 placeholder="Phone number"
                                 value={phone}
-                                onChange={(event) =>
-                                    setPhone(event.target.value)
-                                }
+                                onChange={(event) => setPhone(event.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -137,9 +128,7 @@ const Register = () => {
                                 }
                                 placeholder="Username"
                                 value={username}
-                                onChange={(event) =>
-                                    setUsername(event.target.value)
-                                }
+                                onChange={(event) => setUsername(event.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -153,9 +142,7 @@ const Register = () => {
                                 }
                                 placeholder="Password"
                                 value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
+                                onChange={(event) => setPassword(event.target.value)}
                             />
                         </div>
                         <div className="form-group">
@@ -169,24 +156,16 @@ const Register = () => {
                                 }
                                 placeholder="Re-Enter password"
                                 value={confirmPassword}
-                                onChange={(event) =>
-                                    setConfirmPassword(event.target.value)
-                                }
+                                onChange={(event) => setConfirmPassword(event.target.value)}
                             />
                         </div>
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => handleRegister()}
-                        >
+                        <button className="btn btn-primary" onClick={() => handleRegister()}>
                             Register
                         </button>
                         <hr />
                         {/* div bọc ngoài để button fit content */}
                         <div className="text-center">
-                            <button
-                                className="btn btn-success"
-                                onClick={() => handleMoveToLogin()}
-                            >
+                            <button className="btn btn-success" onClick={() => handleMoveToLogin()}>
                                 Already've an account. Login
                             </button>
                         </div>

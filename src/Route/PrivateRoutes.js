@@ -5,7 +5,6 @@ const PrivateRoutes = (props) => {
     let history = useHistory();
     useEffect(() => {
         let session = sessionStorage.getItem("account");
-        console.log(session);
 
         if (!session) {
             history.push("/login");
