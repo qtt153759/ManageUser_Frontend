@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../Service/userService";
+import { useGlobalContext } from "../../Context/UserContext";
+
 const Login = () => {
+    const { loginContext } = useGlobalContext();
     let history = useHistory();
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
@@ -14,13 +17,6 @@ const Login = () => {
     const handleMoveToRegister = () => {
         history.push("/register");
     };
-    useEffect(() => {
-        let session = sessionStorage.getItem("account");
-        if (session) {
-            history.push("/");
-            window.location.reload();
-        }
-    }, []);
     const handleLogin = async () => {
         setObjValidInput(defaultObjValideInput);
         if (!valueLogin) {
@@ -36,14 +32,18 @@ const Login = () => {
         }
         let response = await loginUser(valueLogin, password);
         if (response) {
+            console.log(response);
+            let { groupWithRoles, username, email, access_token } = response.DT;
+
             if (+response.EC === 0) {
                 let data = {
                     isAuthenticated: true,
-                    token: "fake token",
+                    token: access_token,
+                    account: { groupWithRoles, username, email },
                 };
-                sessionStorage.setItem("account", JSON.stringify(data));
+                loginContext(data);
                 history.push("/user");
-                window.location.reload(); //load lại để check một vài đk nào đó=> tắt đi để check log
+                // window.location.reload(); //load lại để check một vài đk nào đó=> tắt đi để check log
                 return;
             } else {
                 toast.error(response.EM);

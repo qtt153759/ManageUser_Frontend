@@ -36,7 +36,8 @@ instance.interceptors.response.use(
             case 401: {
                 toast.error("Unauthorized the user.Please login... ");
                 // window.location.href='/login' dùng để chuyển trang
-                return Promise.reject(error);
+                // return Promise.reject(error); return error thế này thì cái tk hứng sẽ tạo ra vòng lặp error=> return error.response
+                return error.response.data;
             }
 
             // forbidden (permission related issues)
