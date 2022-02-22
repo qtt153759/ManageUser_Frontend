@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import User from "../components/ManageUser/User";
+import Role from "../components/Role/Role";
 import PrivateRoutes from "./PrivateRoutes";
 const AppRoutes = () => {
     const Project = () => {
@@ -13,6 +14,7 @@ const AppRoutes = () => {
             <Switch>
                 <PrivateRoutes path="/user" component={User} />
                 <PrivateRoutes path="/project" component={Project} />
+                <PrivateRoutes path="/role" component={Role} />
                 <Route path="/" exact>
                     home
                 </Route>

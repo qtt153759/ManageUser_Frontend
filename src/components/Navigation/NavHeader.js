@@ -46,8 +46,8 @@ const NavHeader = () => {
                                 <NavLink to="/project" className="nav-link">
                                     Project
                                 </NavLink>
-                                <NavLink to="/about" className="nav-link">
-                                    About
+                                <NavLink to="/role" className="nav-link">
+                                    Role
                                 </NavLink>
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
