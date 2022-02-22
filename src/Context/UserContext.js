@@ -13,13 +13,19 @@ const AppProvider = ({ children }) => {
     const [user, setUser] = useState(userDefault);
 
     useEffect(() => {
-        if (window.location.pathname !== "/" || window.location.pathname !== "/login") {
+        // Rất quan trọng khi reload
+        if (window.location.pathname !== "/" && window.location.pathname !== "/login") {
             // useEffect sẽ không đợi đâu
             fetchUser();
+        } else {
+            setUser({ ...user, isLoading: false });
         }
     }, []);
     const loginContext = (userData) => {
         setUser({ ...userData, isLoading: false });
+    };
+    const logoutContext = () => {
+        setUser({ ...userDefault, isLoading: false });
     };
     const fetchUser = async () => {
         let response = await getUserAccount();
@@ -39,7 +45,11 @@ const AppProvider = ({ children }) => {
         }
     };
     console.log("check", user);
-    return <AppContext.Provider value={{ user, loginContext }}>{children}</AppContext.Provider>;
+    return (
+        <AppContext.Provider value={{ user, loginContext, logoutContext }}>
+            {children}
+        </AppContext.Provider>
+    );
 };
 const useGlobalContext = () => {
     return useContext(AppContext);

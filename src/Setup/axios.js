@@ -4,8 +4,11 @@ import { toast } from "react-toastify";
 const instance = axios.create({
     baseURL: "http://localhost:5000",
 });
+// Alter defaults after instance has been created
 //Browser auto set withCredentials=false for security=> withCredentials=true to exchange cookie
 instance.defaults.withCredentials = true;
+// fix cors header
+instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("jwt")}`;
 
 // Add a request interceptor
 instance.interceptors.request.use(

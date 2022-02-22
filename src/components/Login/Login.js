@@ -41,6 +41,8 @@ const Login = () => {
                     token: access_token,
                     account: { groupWithRoles, username, email },
                 };
+                // Ngoài dùng jwt bằng cookie thì 1 cách khác đấy là header bearer
+                localStorage.setItem("jwt", access_token);
                 loginContext(data);
                 history.push("/user");
                 // window.location.reload(); //load lại để check một vài đk nào đó=> tắt đi để check log

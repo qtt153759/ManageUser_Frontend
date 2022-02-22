@@ -24,3 +24,26 @@
         color: white;
     }
 }
+.nav-header {
+    .bg-header {
+        background-color: #20232a;
+    }
+    .nav-branch {
+        color: #61dafb !important;
+    }
+    a,
+    .nav-link {
+        color: white !important;
+        &:hover {
+            color: #61dafb !important;
+        }
+        &.active {
+            color: #61dafb !important;
+        }
+    }
+    .dropdown-menu {
+        a {
+            color: #20232a !important;
+        }
+    }
+}
